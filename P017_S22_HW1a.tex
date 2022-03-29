@@ -1,0 +1,214 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+
+\usepackage{sectsty}
+\sectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+% Commands for listings package
+%\usepackage{listings}      % \begin{lstlisting}, for code
+%
+% \lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+%    sets style to small true-type
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Short HW 1}:
+    \textbf{Vectors, Matrices, and Indices}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S2022)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, March 31 (yes, \emph{this} Thursday)
+\end{tabular*}
+
+\noindent
+Note that this short assignment is due by class on Thursday. You have only \emph{two days} to do it. This should be quick, I recommend doing it right after class on Tuesday.
+
+The goal if this short assignment is to get used to the different ways we describe vectors and matrices. 
+
+\section{Vectors}
+
+Let $\vec{v}$ be a vector that is written in column notation as follows:
+\begin{align}
+	\vec{v} = 
+	\begin{pmatrix}
+	3\\
+	5
+	\end{pmatrix} \ .
+	\label{eq:vec:v}
+\end{align}
+
+\subsection{Visual representation}
+\label{problem:draw:v}
+
+Draw the vector $\vec{v}$ and the vector $2\vec{v}$ on a plane. Your plane should have clearly labeled axes with an obvious origin. If you want to be fancy you can call this plane $\mathbb{R}^2$ because each axis is a copy of the real line. 
+
+
+{\small
+\textsc{Comment:} you may be tempted to call $\vec{v}$ a ``position vector'' on two-dimensional space. In fact, you may have heard physicists say the phrase ``position vector'' in lecture or in your textbook. This is the kind of statement that makes mathematicians skin crawl. By the end of this course (or if you ask the professor on Thursday), you will also appreciate why ``position vector'' is nonsense. (We can still say \emph{coordinates}, but coordinates are \emph{not} vectors.)
+}
+
+\subsection{Vectors in index notation}
+
+Let $\vec{w}$ be another vector in $\mathbb{R}^2$. The \textbf{components} of $\vec{w}$ are:
+\begin{align}
+	w^1 &= -2
+	&
+	w^2 &= 1 \ .
+\end{align}
+This vector can \emph{equivalently} be written in different ways:
+\begin{align}
+	\vec{w} = |w\rangle = 
+	\begin{pmatrix}
+		w^1 \\ w^2
+	\end{pmatrix}
+	=
+	w^1 \hat{\vec{x}} + w^2\hat{\vec{y}}
+	= 
+	w^1 \begin{pmatrix} 1\\0 \end{pmatrix} + w^2 \begin{pmatrix} 0\\1 \end{pmatrix}
+	=
+	w^1|x\rangle + w^2|y\rangle \ .
+\end{align}
+Draw the vector $\vec{w}$ on a plane, they way you did in Problem~\ref{problem:draw:v}.
+
+\subsection{Components}
+
+What are the components of the vector $\vec{v}$? State your answer in the following form:
+\begin{align}
+	v^1 &= \; ?
+	&
+	v^2 &= \; ?
+\end{align}
+where you fill in the right-hand sides.
+
+
+
+
+
+
+\section{Matrices}
+
+Let $A$ be a $2\times 2$ matrix\footnote{In this course we will almost exclusively work with square matrices. By the first few weeks of the course you should know why. If not, ask during class. One thing that separates linear algebra in physics versus linear algebra in other fields is that our matrices are always square. In the 60s hippies used to use the term `square' to refer to someone who plays it too safe. Here we use it to mean an $N\times N$ matrix.}:
+\begin{align}
+	A = 
+	\begin{pmatrix}
+		2 & 3\\
+		1 & 4		
+	\end{pmatrix}
+\end{align}
+\subsection{Matrix Multiplication}
+
+Calculate the matrix $A^2$. I guess you could call this ``A squared.''\footnote{There is an excellent book by Edwin Abbot Abbot called \emph{Flatland} where the main character is literally a geometric square living in two-dimensional space. The square's name is A.~Square, which is a pun because the character is a four-sided polygon and the author's last name is Abbot Abbot, or (Abbot)$^2$. Unlike the previous footnote, neither the character nor the author was much of a square. The fictional story is a critique of Victorian social restrictions and has become a favorite among mathematicians because it is also an elegant discussion of extra dimensions.}
+
+\subsection{Matrices}
+
+Here are two more matrices:
+\begin{align}
+	B &= 
+	\begin{pmatrix}
+		0 & 1 \\
+		0 & 0
+	\end{pmatrix}
+	&
+	C &= 
+	\begin{pmatrix}
+		0 & 0 \\
+		1 & 0
+	\end{pmatrix}
+\end{align}
+Please compute $BC$ and $CB$ and take the difference, $BC-CB$. Isn't this kind of weird? For ordinary numbers $b$ and $c$, what is the value of $bc-cb$?
+
+{\small
+\textsc{Comment:} By the way, we often abbreviate this difference as $[B,C] = BC-CB$. We then give it a fancy name, the \emph{commutator} of $B$ and $C$. You will soon see that commutators are a big deal in quantum mechanics. 
+
+\textsc{Comment:} It turns out that the matrices $B$ and $C$ above are also related to the physics of the weak nuclear force. The commutator of the two matrices is related to the interaction between the $W^\pm$ bosons with the $Z$ boson. In fancy-pants language, this is the Lie algebra of the group \acro{SU(2)}. We will mention a bit about this later in the course.} 
+\end{document}
