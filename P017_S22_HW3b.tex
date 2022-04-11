@@ -1,0 +1,447 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{bbm}
+
+\usepackage{sectsty}
+\sectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+% Commands for listings package
+%\usepackage{listings}      % \begin{lstlisting}, for code
+%
+% \lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+%    sets style to small true-type
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Long HW 2}:
+    \textbf{Eigenstuff}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S2022)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, April 28
+\end{tabular*}
+
+\noindent
+This is the `long' assignment assigned every two weeks. You should aim to complete it within two weeks because you'll have new assignments by then, but the formal due date is two weeks + two days. Your explainer video assignment will be to present one of these problems.
+
+Part of the challenge of the `long' homework may be to figure out exactly what is being asked. Be sure to use the beginning of lecture (or office hours) to ask early when you are confused. Sometimes we are \emph{intentionally} using jargon that you may not be familiar with in order to encourage you to ask and/or look things up.\footnote{Sometimes this is just because the professor is absent minded about what students know and do not yet know.} A good mantra that was once told to the professor when he was a student: \emph{There are no stupid questions. Only stupid students who do not ask questions when they are confused.}
+
+
+\section{Rotations and Boosts}
+
+In special relativity, Euclidean space is extended into a Minkowski spacetime. The difference is that Minkowski space has an unusual minus sign between the space-like and time-like components of the metric. In each case, there are a set of special transformations that preserve the metric. These are the rotations of Euclidean space and the Lorentz transformations (boosts) of Minkowski space. In this problem we derive these in two dimensions. 
+
+\subsection{Deriving Rotations}
+
+Consider two-dimensional Euclidean space. The metric is 
+\begin{align}
+	\delta_{ij} \equiv 
+	\begin{cases}
+	1 & \text{if $i=j$}
+	\\
+	0 & \text{if $i\neq j$} \ .
+	\end{cases}
+\end{align}
+The metric is the machine that turns a column vector into a row vector. It is essentially the unit matrix. In row-vector/column-vector notation, this means that the row vector associated with a column vector is simple: it is just a row whose components are identical to the column vector.  For a vector $\vec{v}$, let us call its row vector $\vec{v}^T$, the usual transpose. 
+
+Now consider a scalar quantity, $\vec{w}^T \mathbbm{1} \vec{v}$, where we have written the metric (the unit matrix $\mathbbm{1}$) explicitly. What kind of transformations, $R$ leave this scalar quantity invariant? We know that the vectors transform as
+\begin{align}
+	\vec{v} &\to R \vec{v}
+	&
+	\vec{w} &\to R\vec{w}
+	&
+	\vec{w}^T &\to \vec{w}^T R^T \ .
+	\label{eq:vector:transform}
+\end{align}
+This tells us that the scalar quantity seems to transform as
+\begin{align}
+	\vec{w}^T \mathbbm{1} \vec{v} \to \vec{w}^T R^T \mathbbm{1} R \vec{v} \ .
+\end{align}
+However, since we are assuming that $\vec{w}^T \mathbbm{1} \vec{v}$ is invariant, we must have
+\begin{align}
+	R^T \mathbbm{1} R = \mathbbm{1} \ .
+\end{align}
+Or, more simply:
+\begin{align}
+	R^T R = \mathbbm{1} \ .
+\end{align}
+Show that this means that $R$ must be a rotation\footnote{There's a choice of convention on whether the minus sign shows up on the upper-right or lower-left element. Please convince yourself that this is equivalently a choice of the convention for the sign of $\theta$; that is: whether you do a clockwise or counter-clockwise transformation.},
+\begin{align}
+	R(\theta) = 
+	\begin{pmatrix}
+			\cos\theta & \sin\theta \\
+			-\sin\theta & \cos\theta
+		\end{pmatrix}	 \ .
+		\label{eq:rotations}
+\end{align}
+
+\textsc{Hint:} start by putting in arbitrary components for the $2\times 2$ matrix $R$. Then use $R^T R = \mathbbm{1}$ to determine a set of four equations (three of them are independent) that the four components must satisfy. I think at some point you have to assume that the two diagonal elements have the same sign. Do not worry about that.\footnote{This corresponds to saying that you are choosing not to swap the orientation of the two basis vectors: the $y$ direction is counter clockwise to the $x$ direction by $\pi/2$.}
+
+
+\subsection{Deriving Lorentz Transformations}
+
+(1+1)-dimensional special relativity has one dimension of time and one dimension of space. This is two-dimensional Minkowski spacetime and has a metric
+\begin{align}
+	\eta_{\mu\nu} &\equiv 
+	\begin{cases}
+	+1 & \text{if $\mu=\nu=0$}
+	\\
+	-1 & \text{if $\mu=\nu=1$}
+	\\
+	0 & \text{if $\mu \neq \nu$} \ .
+	\end{cases}
+	&
+	\eta  &=
+	\begin{pmatrix}
+		1 & 0 \\
+		0 & -1
+	\end{pmatrix} \ .
+\end{align}
+We would like to determine the form of the transformations $\vec{v}\to\Lambda\vec{v}$ that leave $\eta$ invariant. From the same argument as above, this means:
+\begin{align}
+	\vec{w}^T \Lambda^T \eta \Lambda \vec{v} = 
+	\Lambda^T \eta \Lambda \ .
+	\label{eq:Lorentz:def}
+\end{align}
+Following the same steps as for rotations, show that the generic form of the transformation $\Lambda$ is
+\begin{align}
+	\Lambda &=
+	\begin{pmatrix}
+		\cosh y & \sinh y\\
+		\sinh y & \cosh y
+	\end{pmatrix} \ ,
+	\label{eq:Lorentz:hyperbolic}
+\end{align}
+where the parameter $y$ is called the \emph{rapidity} in special relativity. The $\cosh$ and $\sinh$ functions are the hyperbolic functions,
+\begin{align}
+	\cosh x &\equiv \frac{e^{x}+e^{-x}}{2}
+	&
+	\sinh x &\equiv \frac{e^{x}-e^{-x}}{2} \ .
+\end{align}
+
+\textsc{Hint:} it may be helpful to recall that the $x^2 - y^2 = 1$ defines a hyperbola with solution $x(t) = \cosh t$ and $y(t) = \sinh t$ for some `angle' $t$. This is the analog of $x^2 + y^2 = 1$ defining a circle with solution $x(\theta) = \cos\theta$ and $y(\theta) = \sin\theta$.
+
+
+\subsection{Deriving Lorentz Transformations, Another Way}
+
+The solution for $\Lambda$ with respect to hyperbolic functions \eqref{eq:Lorentz:hyperbolic} is nice because it gives a clear connection to the trigonometric functions that show up in the rotation matrix of Euclidean space, \eqref{eq:rotations}.
+
+There is an alternative (but equivalent!) way of writing the solution to \eqref{eq:Lorentz:def}. Show that the following matrix also satisfies \eqref{eq:Lorentz:def}:
+\begin{align}
+	\Lambda &=
+	\begin{pmatrix}
+		\gamma & \beta\gamma\\
+		\beta\gamma & \gamma
+	\end{pmatrix}
+	&
+	\gamma \equiv \frac{1}{\sqrt{1-\beta^2}} \ ,
+	\label{eq:gamma:beta}
+\end{align} 
+where $\beta=v/c$ is a dimensionless boost parameter. This transformation boosts between two reference frames which have relative velocity $v$ with respect to one another.\footnote{Sometimes you'll see versions of this where $\beta\to -\beta$. This is simply a difference between active versus passive transformations, or more physically, a choice of whether we're boosting in one direction versus the opposite direction. This is analogous to the $\theta \to -\theta$ ambiguity for rotations.}
+
+
+\subsection{What happens to basis vectors under a boost?}
+
+Consider (1+1) dimensional spacetime (2-dimensional Minkowski space). The standard basis elements are 
+\begin{align}
+	\vec{e}_{(1)} &=
+	\begin{pmatrix}
+		1\\0
+	\end{pmatrix}
+	&
+	\vec{e}_{(2)} &=
+	\begin{pmatrix}
+		0\\1
+	\end{pmatrix} \ .
+\end{align}
+Draw these two vectors. On the same plot, please also draw the transformed vectors, $\Lambda\vec{e}_{(1)}$ and $\Lambda\vec{e}_{(2)}$. You don't have to pick any specific boost parameter ($\beta$ or $y$), but show the generic behavior for some non-trivial (non-zero) positive boost. \textsc{Hint}: do not overthink this by over-computing. The goal is to compare the transformation of basis vectors in \emph{spacetime} under boosts to the transformation of vectors in \emph{space} under rotations.
+
+
+
+
+\section{Diagonal and Symmetric Matrices}\label{sec:matrixspace}
+
+We never say this out loud, but most physicists have an \emph{intuitive} ``gut feeling'' about \emph{nice} matrices.\footnote{In the television series \emph{Severance}, the Macrodata Refinement employees sort groups of numbers according to how they \emph{feel}. That's how I feel about matrices.} One type of nice matrix are symmetric, real matrices. These are nice because you can rotate into a basis where the matrices are diagonal and their action on vectors is simple. In this problem we focus on Euclidean two-dimensional space. In the back of your mind, you should think about how this generalizes to higher dimensional spaces.
+
+\subsection{Diagonal matrices, the nicest matrices}
+
+Let $\hat A$ be a diagonal matrix,
+\begin{align}
+	\hat A = 
+	\begin{pmatrix}
+		\lambda_1 &  0 \\
+		0 & \lambda_2
+	\end{pmatrix} \ .
+	\label{eq:Ahat}
+\end{align}
+Wow, what a nice matrix. To see how nice this is, please draw the following:
+\begin{itemize}
+	\item[(a)] Draw the standard basis, $\vec{e}_{(1)} = (1,0)^T$ and $\vec{e}_{(2)} = (0,1)^T$, along with a vector $\vec{v} = (1,1)$.
+	\item[(b)] Now assume that $\lambda_1 = 2$ and $\lambda_2 = 3$. Draw the the same diagram, but with everything transformed by $\hat{A}$: $\hat{A} \vec{e}_{(1)}$, $\hat{A} \vec{e}_{(2)}$, $\hat A\vec{v}$.
+\end{itemize}
+What are the components of $\hat A\vec{v}$ with respect to the standard basis?
+
+\textsc{Comment}: there are two ways of thinking about a general transformation $T$ acting on a vector $\vec{v}$:
+\begin{align}
+	\left(T \vec{v}\right)^i \, \vec{e}_{(i)} &= \left(T^{i}_{\phantom{i}j}v^j\right)\, \vec{e}_{(i)}
+	&
+	T \vec{v} = v^i \left(T \vec{e}_{(i)}\right) \ .
+\end{align}
+Your drawing in part (b) illustrates these two pictures. 
+
+% \subsection{Rotating the matrix}
+
+% A $2\times 2$ rotation matrix takes the form\footnote{There's a choice of convention on whether the minus sign shows up on the upper-right or lower-left element. Please convince yourself that this is equivalently a choice of the convention for the sign of $\theta$; that is: whether you do a clockwise or counter-clockwise transformation.}
+% \begin{align}
+% 	R(\theta) = 
+% 	\begin{pmatrix}
+% 			\cos\theta & \sin\theta \\
+% 			-\sin\theta & \cos\theta
+% 		\end{pmatrix}	 \ ,
+% \end{align}
+
+
+\subsection{Transformation of a matrix}
+
+How does a matrix $B$ transform under a rotation, $R$? Argue that the transformation is: 
+\begin{align}
+	B \to R B R^T \ .
+	\label{eq:rotation:of:matrix}
+\end{align}
+\textsc{Hint}: consider the transformation of vectors, \eqref{eq:vector:transform}, and think about a scalar quantity that involves the matrix $B$.
+
+\subsection{Hiding a diagonal matrix by rotating to a different basis}
+
+Use the transformation of a matrix under a rotation \eqref{eq:rotation:of:matrix} and the general form of a rotation in two-dimensional Euclidean space \eqref{eq:rotations} to show that the diagonal matrix $\hat A$ in \eqref{eq:Ahat} turns into a symmetric matrix,
+\begin{align}
+	\hat A \to A \equiv  R \hat A R^T  = 
+	\begin{pmatrix}
+		x & y \\
+		y & z
+	\end{pmatrix} \ .
+	\label{eq:A:RAhatRt}
+\end{align}
+Find the components $x$, $y$, and $z$ in terms of $\sin\theta$, $\cos\theta$, $\lambda_1$ and $\lambda_2$.
+
+\subsection{Visualizing a symmetric transformation}
+
+Assume that 
+\begin{align}
+	\lambda_1 &= 2 &
+	\lambda_2 &= 3 &
+	\theta &= \pi/4 \ .
+\end{align}
+Write out the numerical form of the matrix $A$ from the previous step. Now pretend that you were given this symmetric matrix and wanted to understand wha this transformation does to your vector space. The equation \eqref{eq:A:RAhatRt} tells us a nice way to understand this. To understand what $A$ does to a vector: first you hit the vector by a rotation $R^T$, then you rescale the $x$- and $y$-components by $\lambda_1$ and $\lambda_2$ respectively, and then you rotate by $R$.
+
+For the case of a vector $\vec{v} = (1,1)^T$, please draw 
+\begin{enumerate}
+	\item the initial vector
+	\item the above vector after rotating by $R^T$,
+	\item the above vector after rescaling the $x$-component by $\lambda_1$ and the $y$-component by $\lambda_2$
+	\item the above vector after rotating by $R$ \ .
+\end{enumerate}
+
+\subsection{Eigenvectors}
+
+One thing to appreciate from all this is that everything is really easy when your transformation is \emph{diagonal}. You simply rescale the components of your vector. Suppose you have the decomposition of a symmetric matrix,
+\begin{align}
+	A = R \hat A R^T \ ,
+\end{align}
+where $\hat A$ is a diagonal matrix with components $\lambda_1$ and $\lambda_2$. These components are called \textbf{eigenvalues} of $A$. These are the \emph{essence} of the transformation $A$. They tell you: if only you were in the nicest possible basis, the transformation is simply acting with a diagonal matrix with components $\lambda_1$ and $\lambda_2$.
+
+The decomposition, further, tells us that there are special vectors, $\xi_1$ and $\xi_2$, called \textbf{eigenvectors} for which 
+\begin{align}
+	A \xi_1 &= \lambda_1\xi_1
+	&
+	A \xi_2 &= \lambda_2\xi_2 \ .
+\end{align}
+Show that the columns of $R$ are simply these eigenvectors. That is, if $R$ is defined as in \eqref{eq:rotations} \ , then 
+\begin{align}
+	\xi_1 &= 
+	\begin{pmatrix}
+		\cos\theta\\ -\sin\theta
+	\end{pmatrix}
+	&
+	\xi_2 &= 
+	\begin{pmatrix}
+		\sin\theta\\ \cos\theta
+	\end{pmatrix} \ .
+\end{align}
+\textsc{Hint:} it may help to remember that $R^T R = \mathbbm{1}$. 
+
+\textsc{Comment:} One very important observation is that the eigenvectors of a symmetric matrix form an orthonormal basis. This is not true in general for non-symmetric matrices. This is another manifestation of symmetric matrices being `nice.'
+
+\section{Muon Lifetime}
+
+Suppose we lived in 2-dimensional Minkowski spacetime. Note: in this problem we use natural units where the speed of light $c=1$.
+%
+The 2-velocity $U$ is the velocity of a particle in spacetime. A particle at rest in your frame has 2-velocity
+\begin{align}
+	U = 
+	\begin{pmatrix}
+		1 \\ 0
+	\end{pmatrix} \ .
+\end{align}
+This means it travels at 	``one second per second'' in the timelike direction. In another frame, the 2-velocity of the particle is
+\begin{align}
+	U' = \Lambda U = 
+	\begin{pmatrix}
+		\gamma & \beta \gamma\\
+		\beta \gamma & \gamma
+	\end{pmatrix}
+	\begin{pmatrix}
+		1 \\ 0
+	\end{pmatrix}
+	= 
+	\begin{pmatrix}
+		\gamma \\ \beta\gamma
+	\end{pmatrix} \ ,
+\end{align}
+where $\gamma$ and $\beta$ are defined in \eqref{eq:gamma:beta}, with $\beta = v/c$ the relative velocity between the frames. The lifetime of the muon is $\tau =2$ microseconds. As a spacetime interval, this says that in the rest frame of the muon, 
+\begin{align}
+	\Delta x = 
+	\begin{pmatrix}
+		\tau \\ 0
+	\end{pmatrix} \ .
+\end{align}
+
+
+\subsection{Muon Lifetime in a boosted frame}
+% Griffiths Problem 3.4
+
+[Inspired by Griffiths, \emph{Introduction to Particle Physics}, Problem 3.4.] Muons are produced from cosmic rays hitting the atmosphere at an altitude of about 8000~m. They are produced at velocity $v=.998~c$. If we are very naive and do not know special relativity, we may think that the muon never reaches the surface of the Earth because it travels a distance $d = v \tau \approx 700~\text{m}$.
+
+However, a muon traveling at velocity $v=.998~c$ is in a very boosted reference frame relative to the Earth. Use the fact that $U\cdot \Delta x$ is invariant to determine the lifetime of a muon as observed by an observer on the Earth. 
+
+\textsc{Hint:} use the fact that the spacetime interval for the decaying muon is 
+\begin{align}
+	\Delta x' =
+	\begin{pmatrix}
+		t\\
+		\beta t
+	\end{pmatrix} \ .
+\end{align}
+
+\textsc{Answer:} you should find that $t = \gamma \tau$. For $\beta \approx 0.998$, we have $\gamma \approx 16$. Observe that the distance traveled ends up being $c\beta \tau = 10^4~m$ so that the muon actually reaches the Earth's surface.
+
+
+% gam t - bet gam bet t = gam (1-bet^2)t = tau
+
+\subsection{Muon Lifetime near a black hole}
+
+Reducing to two spacetime dimensions (e.g. a radial direction and a time direction), the metric near a black hole of mass $M$ is
+\begin{align}
+	g_{\mu\nu} &= 
+	\begin{pmatrix}
+		\left(1-\frac{r_\text{s}}{r}\right) & 0\\
+		0 & -\left(1-\frac{r_\text{s}}{r}\right)^{-1}
+	\end{pmatrix}
+	&
+	r_\text{s} = 2G_N M \ ,
+\end{align}
+where $G_N$ is the gravitational constant. $r_\text{s}$ is the Schwarzschild radius of the black hole; in this problem we assume that $r>r_\text{s}$. Suppose we are observing a black hole from far away, $r_\text{obs}\gg r_\text{s}$. Suppose further that someone creates a muon at some distance $r_0$ from the black hole, with the property that $r_s < r_0 \ll r_\text{obs}$. How long does it take for us to observe the muon to decay? 
+
+For concreteness, assume that $M$ is the mass of the sun and $r_0 = 1.1\, r_\text{s}$.
+
+\textsc{Hint:} the muon will be accelerated into the black hole. However, let us suppose that it does not move very far before decaying so that we can effectively set $r=r_0$ to be constant in the metric. Use the fact that $U\cdot\Delta x$ is invariant.
+
+\textsc{Comment:} observe that unlike the special relativity example, there is a time dilation simply from the fact that the metric has a position-dependence.
+
+
+
+% \section{Histogram Space}
+
+% Here's a funky vector space. 
+
+
+\end{document}
