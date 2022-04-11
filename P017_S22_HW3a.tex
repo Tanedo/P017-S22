@@ -128,6 +128,25 @@ You are given three vectors that are \emph{linearly independent}\footnote{This m
 \end{align}
 Perform the Gram--Schmidt procedure to derive an orthonormal basis from these vectors. The first basis vector $\vec{e}_{(1)}$ should be parallel to $\vec{v}$. The second basis vector $\vec{e}_{(2)}$ should be on the $\vec{v}$--$\vec{w}$ plane. 
 
+\section{Professor Tanedo doesn't understand the chain rule}
+
+In class last week we talked about partial derivatives being basis vectors for first-order differential operators:
+\begin{align}
+	D = d^1 \frac{\partial}{\partial x} + d^2 \frac{\partial}{\partial y} \ .
+\end{align}
+We claimed that it was `obvious' that under a change of coordinages $x\to x'$, there is a natural change of basis
+\begin{align}
+	\frac{\partial}{\partial x} = \left(\frac{\partial x'}{\partial x}\right) \frac{\partial}{\partial x'} \ . \label{eq:chain:rule}
+\end{align}
+In class Professor Tanedo simply \emph{cancelled out the $\partial x'$} factors. This is mathematically dubious at best! Show how to do this properly.
+
+The new coordinates $x'$ are a function of the old coordinates: $x'(x)$. This is simply the statement that every point in the old coordinates maps onto a single point in the new coordinates. Now take a test function $f(x')$ that is a function of the new coordinate $x'$. Take the derivative of $f(x')$ with respect to the old coordinate $x$ by using the chain rule:
+\begin{align}
+	\frac{\partial}{\partial x} f\left(x'(x)\right) \ .
+\end{align}
+Since the result is true for any test function $f$, argue that \eqref{eq:chain:rule} must be true in general.\footnote{There are some assumptions here about $f$ being a sufficiently differentiable function... let us not concern ourselves with the deviant cases.}
+
+
 
 
 
