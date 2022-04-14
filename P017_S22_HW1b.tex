@@ -426,11 +426,13 @@ where here $A^n$ is understood to mean matrix multiplication. Show the following
 \begin{align}
 	e^{i \theta T} &= R(\theta) 
 	&
-	T &= \begin{pmatrix}
-		0 & 1 \\ -1 & 0
+	% T &= \begin{pmatrix}
+	% 	0 & 1 \\ -1 & 0
+		T &= \begin{pmatrix}
+		0 & i \\ -i & 0
 	\end{pmatrix}\ .
 \end{align}
-Note that $\theta$ is just some real number. 
+Note that $\theta$ is just some real number.  \flip{Correction 4/14: the form of $T$ was originally off by a factor of $i$. Or maybe it is was off by $-i$. It may still be off by a factor of $-1$, but that boils down to a convention on the sign of $\theta$. }
 
 \textsc{Hint}: work out the first few terms explicitly. You should notice a pattern between the even powers and the odd powers. Remember what the Taylor expansions for sine and cosine look like. 
 
