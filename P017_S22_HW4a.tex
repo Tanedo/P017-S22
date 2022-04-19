@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+
+\usepackage{sectsty}
+\sectionfont{\Large}
+% \subsectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Short HW 4}:
+    \textbf{Diagonal and Symmetric Matrices}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S22)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, April 21 
+\end{tabular*}
+
+\noindent
+Note that this short assignment is due by class on Thursday. You have only \emph{two days} to do it. This should be quick, I recommend doing it right after class on Tuesday.
+
+Diagonal matrices are nice, aren't they? For this problem, we work with the generic $2\times 2$ real, diagonal matrix $D$ with elements
+\begin{align}
+	D = 
+	\begin{pmatrix}
+	\lambda_1 & 0 \\
+	0 & \lambda_2	
+	\end{pmatrix} \ .
+\end{align}
+
+
+\section{Determinant and Trace}
+
+\subsection{Easy part}
+
+What are the determinant and the trace of $D$? 
+
+\subsection{Rotated Matrix}
+
+Let $R$ be the generic $2\times 2$ rotation 
+\begin{align}
+	R =
+	\begin{pmatrix}
+		c & s \\
+		-s & c
+	\end{pmatrix} \ ,
+\end{align}
+where $c=\cos\theta$ and $s=\sin\theta$. We know that under this rotation, the matrix $D$ transforms as $D\to D'= RDR^T$. Explicitly write $D'$ as a $2\times 2$ matrix and show that $D'$ is \textbf{symmetric}: $D'^T = D$.
+
+\subsection{Determinant and Trace, Redux}
+
+Using the rotated matrix from the previous part, calculate the determinant and trace of $D'$. You should find that they are the same as part 1.1. 
+
+\section{Using the diagonal basis to simplify symmetric matrices}
+
+\subsection{Action of a symmetric matrix}
+
+Suppose someone gave you the symmetric matrix $D'$ from the previous problem. You wrote down the form of $D'$ in problem 1.2. Suppose you are also given a vector
+\begin{align}
+	\vec{v} = R 
+	\begin{pmatrix}
+	v^1 \\ 0	
+	\end{pmatrix} \ .
+\end{align}
+What is the transformed vector, $D'\vec{v}$? 
+
+\textsc{Hint:} you should be able to do this without doing any work. However, you may want to work it out explicitly to double check your intuition.
+
+
+
+\subsection{Inverse of a symmetric matrix}
+
+In class a few weeks ago we said we would not calculate the inverse of a matrix because that's just busy work. Well, guess what: we lied! However, we still do not want to do busy work. Given that $D' = R D R^T$, please explicitly write out the inverse matrix, $(D')^{-1}$. 
+
+\textsc{Hint:} it should be `obvious' how to write $(D')^{-1}$ as a product of three matrices whose components you know. Then you just have to either (1) do the matrix multiplication, or (2) realize that you basically did this matrix multiplication (with slightly different numbers) in problem 1.2.
+
+
+
+% remark: vector isn't its components, can't say v=column.
+\end{document}
