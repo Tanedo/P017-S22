@@ -1,0 +1,209 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+
+\usepackage{sectsty}
+\sectionfont{\Large}
+% \subsectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Short HW 5}:
+    \textbf{Commutators, Degenerate Eigenvalues}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S22)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, April 28 
+\end{tabular*}
+
+\noindent
+Note that this short assignment is due by class on Thursday. You have only \emph{two days} to do it. This should be quick, I recommend doing it right after class on Tuesday.
+
+
+
+The \textbf{commutator} of two matrices $A$ and $B$ is 
+\begin{align}
+	\left[A,B\right] \equiv AB - BA \ .
+\end{align}
+When $[A,B]=0$, we say that the two matrices commute. 
+
+\section{Degenerate Eigenvectors}
+
+Suppose a matrix has degenerate eigenvalues, $\lambda_i=\lambda_j$ for $i\neq j$. This leads to an ambiguity for the choice of eigenvectors. To see, this consider the symmetric matrix $A$,
+\begin{align}
+	A = \frac{1}{2}
+	\begin{pmatrix}
+		4 & 0 & 0\\
+		0 & 3 & 1\\
+		0 & 1 & 3
+	\end{pmatrix}
+	= 
+	R_x 
+	\begin{pmatrix}
+		2 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 2
+	\end{pmatrix}
+	R_x^T \ .
+	\label{eq:A}
+\end{align}
+Here $R_x$ is the rotation by angle $\pi/4$ with respect to the $x$-axis,
+\begin{align}
+	R_x = \begin{pmatrix}
+		1 & 0 & 0 \\
+		0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+		0 & \frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+	\end{pmatrix} \ .
+\end{align}
+Show that the two eigenvectors with eigenvalue $2$ are not unique. That is to say, there are an infinite number of ways of writing a pair of eigenvectors of $A$ that (i) have eigenvalue $3/2$, (2) are orthonormal to each other, and (3) are orthonormal to the eigenvector with eigenvalue $1$. \textsc{Hint: the product of two rotation is a rotation.} 
+
+
+
+\section{Simultaneously Diagonalizable Matrices}
+
+Suppose $A$ and $B$ are both symmetric matrices. 
+
+\subsection{Commutation Relation}
+
+Show that if $A$ and $B$ are diagonalized by the same rotation, then the two matrices commute.
+\begin{align}
+	\left[A,B\right] = 0
+\end{align}
+
+\textsc{Hint:} diagonal matrices commute.
+
+\textsc{Comment:} it is also true that if $A$ and $B$ commute, then they can be diagonalized by the same rotation. That is a little more tricky to prove, though.
+
+
+\subsection{Breaking the Degeneracy}
+
+Suppose $A$ is defined as in \eqref{eq:A}, and $B$ is define to be
+\begin{align}
+	B = %\frac{1}{2}
+	\begin{pmatrix}
+		1 & 0 & 0\\
+		0 & 2 & 1\\
+		0 & 1 & 2
+	\end{pmatrix}
+	= 
+	R_x 
+	\begin{pmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 3
+	\end{pmatrix}
+	R_x^T \ .
+	\label{eq:B}
+\end{align}
+%
+Observe that $B$, like $A$, has a degeneracy: two eigenvectors have the same eigenvalue, $\lambda=1$. Thus these two eigenvectors can be rotated into one another and the result are equally valid eigenvectors.
+
+$A$ and $B$ can simultaneously be diagonalized. Let $\lambda_{A,i}$ be the $i^\text{th}$ eigenvalue of $A$, and similarly with $\lambda_{B,i}$ for $B$. We can label the eigenvectors in ket notation:
+\begin{align}
+	|\lambda_{A,i}, \lambda_{B,i} \rangle
+\end{align}
+is the eigenvector of both $A$ and $B$ that satisfies
+\begin{align}
+	A|\lambda_{A,i}, \lambda_{B,i} \rangle
+	&= \lambda_{A,i}|\lambda_{A,i}, \lambda_{B,i} \rangle
+	&
+	B|\lambda_{A,i}, \lambda_{B,i} \rangle
+	&=
+	\lambda_{B,i}
+	|\lambda_{A,i}, \lambda_{B,i} \rangle \ .
+\end{align}
+Write out the eigenvectors $|\lambda_{A,i}, \lambda_{B,i} \rangle$ that are the simultaneous eigenvectors of $A$ and $B$. Explain why there is no more degeneracy in how these eigenvectors are defined, even though both $A$ and $B$ had degeneracies in how to define the eigenvectors. 
+
+
+
+
+
+% remark: vector isn't its components, can't say v=column.
+\end{document}

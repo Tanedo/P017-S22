@@ -1,0 +1,424 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{bbm}
+
+\usepackage{sectsty}
+\sectionfont{\Large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+% Commands for listings package
+%\usepackage{listings}      % \begin{lstlisting}, for code
+%
+% \lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+%    sets style to small true-type
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Long HW 3}:
+    \textbf{Complex Spaces, Infinite Dimensional Spaces}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S2022)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, May 12
+\end{tabular*}
+
+\noindent
+This is the `long' assignment assigned every two weeks. You should aim to complete it within two weeks because you'll have new assignments by then, but the formal due date is two weeks + two days. Your explainer video assignment will be to present one of these problems.
+
+If a problem gets really thorny, check to make sure the professor did not make a mistake typesetting it.
+
+% Part of the challenge of the `long' homework may be to figure out exactly what is being asked. Be sure to use the beginning of lecture (or office hours) to ask early when you are confused. Sometimes we are \emph{intentionally} using jargon that you may not be familiar with in order to encourage you to ask and/or look things up.\footnote{Sometimes this is just because the professor is absent minded about what students know and do not yet know.} A good mantra that was once told to the professor when he was a student: \emph{There are no stupid questions. Only stupid students who do not ask questions when they are confused.}
+
+
+
+\section{1D model of a molecule}
+
+% Inspired by Matthews & Walker (Sec 6-5)
+
+Consider the following \emph{spherical cow}\footnote{\url{https://en.wikipedia.org/wiki/Spherical_cow}} model of a water molecule (H$_2$O): imagine three point masses connected to each other by springs representing the atomic forces within the molecule. For this model, the point masses and springs are constrained to lie on a rigid hoop so that the problem is one dimensional. 
+
+\begin{center}
+	\includegraphics[width=.4\textwidth]{HW1b_springs.pdf}
+\end{center}
+
+For simplicity, assume that all of the masses and spring constants are the same,
+\begin{align}
+	m_i &= m & k_i &= k 
+	&
+	\text{for } i=1,2,3 
+	\ .
+\end{align}
+
+\begin{enumerate}[(a)]
+	\item Denote by $x$ the distance along the hoop from some common reference position. This is essentially an angular variable. Let $\vec{x} = (x_1, x_2, x_3)$ be a vector of positions along the hoop relative to some reference point, as shown in the figure above. The spring forces acting on mass $2$, for example, depends on $(x_3-x_2)$ and $(x_2-x_1)$. Using Hooke's law, write down the equation of motion in the following form:
+\begin{align}
+	\ddot{\vec{x}} &= -\frac{k}{m} V \vec{x} \ .
+	\label{eq:eom}
+\end{align}
+Explicitly write the components of $V$ as a $3\times 3$ matrix in this basis. 
+
+\textsc{Hint:} be careful to make sure the signs are correct. For example, consider the force on the second mass. Which direction should the force go if $x_3$ is increased? Which direction should the force go if $x_1$ is decreased?
+
+\item 
+Use the characteristic equation $\text{det}(V-\lambda\mathbbm{1})=0$ to determine the eigenvalues $\lambda_i$ of $V$. 
+
+We refer to the set of eigenvalues as the \textbf{spectrum} of $V$. You should find that one of the eigenvalues is zero. You should think about what that zero eigenvalue means physically.  
+
+\textsc{Comment:} The eigenvalues of Hooke's law are: 
+\begin{align}
+	\omega_i \equiv \sqrt{\frac{k}{m}\lambda_i} \ .
+\end{align}
+
+
+\item Find the eigenvectors $\xi_{(i)}$ of $V$. One way to do this is to use
+\begin{align}
+ 	(A-\lambda_i\mathbbm{1})\xi_{(i)} = 0 \ .
+ \end{align}
+The left-hand side of this equation is fully determined. This means you have a system of three equations for the three unknown components of each $\xi_{(i)}$. Observe that only two of these equations are meaningful, the third one is always redundant and provides no new information.\footnote{Remember that this is expected! The eigenvectors are defined by $A\xi_{(i)}=\lambda_i\xi_{(i)}$. This means that any rescaling of $\xi_{(i)}$ is still an eigenvector with the same eigenvalue $\lambda_i$.} You should fill in the missing information by requiring that the eigenvectors are normalized, $\langle \xi_{(i)}, \xi_{(i)} \rangle = 1$. 
+
+
+\item Hooke's law \eqref{eq:eom} is pretty simple in the eigenbasis:
+\begin{align}
+	\ddot{\vec{x}} &= \frac{k}{m} R^T \hat V R \vec{x} \\
+	\ddot{\vec{x}} &= \frac{k}{m} R^T \hat V R \vec{x} \\
+	R\ddot{\vec{x}} &= \frac{k}{m} \hat V R \vec{x}  \ .
+\end{align}
+where $\hat V=\text{diag}(\lambda_1, \lambda_2, \lambda_3)$ is the diagonal matrix of eigenvalues.If we now assume that the vectors $\vec{x} = \vec{e}_{(i)}$ are the standard basis vectors, we end up with 
+\begin{align}
+	\ddot{\vec{\xi}}_{(i)} &= \frac{k}{m} \lambda_i \vec{\xi}_{(i)} =\omega_i^2 \vec{\xi}_{(i)}  \ .
+\end{align}
+ These are three separate second-order differential equations. Recall that we can choose the solution to $f''(t) = -(k/m) \lambda f(t)$ is
+\begin{align}
+	f(t) = a \sin(\omega  t) \ .
+\end{align}
+Here $a$ is the amplitude and the angular frequency is $\omega = \sqrt{(k/m)\lambda}$.\footnote{We have implicitly assumed an initial condition so that there is no cosine solution.} For our purposes, we can set the amplitude $a=1$. Note that the solution takes a different form when $\lambda=0$. 
+
+\textsc{Comment:} The non-zero eigenvectors thus have a solution $\xi_{(i)}(t) = \sin(\omega_i t)$. The angular frequency $\omega_i = \sqrt{(k/m)\lambda_i}$ is called a \textbf{normal frequency} for the system. 
+
+\item What is $\xi_{(i)}(t)$ for the eigenvector with a zero eigenvalue? Given the components of this eigenvector with respect to the original $\vec{x}$ basis, please describe the motion of the molecule that corresponds to the zero eigenvalue. Draw a cartoon showing how each node `hoop molecule' moves with respect to the lowest eigenvector. 
+
+
+
+% \emph{This is the tedious part of the problem so that you can write down ``equations 'n stuff.''}
+% Solve the eigenvalue problem in the $\left\{ \vec{v}_i\right \}$ basis. In this basis (\ref{eq:eom}) is simple to solve, right? Write down the general solution of the problem in the $\left\{ \vec{x}_i\right \}$ basis as a function of the initial positions and velocities in the system.  (If I were to choose to sacrifice a point for skipping a part of a problem, I would choose this sub-problem. But I'd make sure I understood how to do it.)
+
+\end{enumerate}
+
+% \textsc{Comment}: I encourage you to think about how problem changes if the masses and spring constants are not degenerate. 
+
+% \textsc{Comment}: You may enjoy reading a similar ``bead on a hoop with springs'' set up in \url{https://arxiv.org/abs/physics/0506195}. The paper discusses how the classical system exhibits what we call \textbf{critical behavior}\footnote{See, e.g.: \url{https://www.perimeterinstitute.ca/videos/conformal-bootstrap-magnets-boiling-water}}.
+
+\section{3D Rotations and a hint of representation theory}
+
+\subsection{The 3D Rotation Matrices and their Generators}
+According to \emph{Wikipedia}, one convention for the 3D rotation matrices are:
+\begin{align*}
+	R_x(\theta) &= 
+	\begin{pmatrix}
+		1 & 0 & 0 \\
+		0 & \cos\theta & \sin\theta\\
+		0 & -\sin\theta & \cos\theta
+	\end{pmatrix}
+	&
+	R_y(\theta) &=
+	\begin{pmatrix}
+		\cos \theta & 0 & -\sin\theta \\
+		0 & 1 & 0 \\
+		\sin\theta & 0 & \cos\theta
+	\end{pmatrix}
+	&
+	R_z(\theta) &=
+	\begin{pmatrix}
+		\cos\theta & \sin\theta & 0 \\
+		-\sin\theta & \cos\theta & 0 \\
+		0 & 0 & 1
+	\end{pmatrix} \ .
+\end{align*}
+These are the rotations about the $x-$, $y-$, and $z-$axes, respectively.
+You should instantly recognize that these are essentially the $2\times 2$ rotation matrix with an extra row and column inserted and a 1 on the axis about which one is rotating. It is curious that the $R_y$ piece seems to have the minus sign on the bottom left rather than the top right, isn't it?
+
+In quantum mechanics, finite transformations (like rotations by an angle $\theta$) are generated by the repeated action of infinitesimal transformations:
+\begin{align}
+	e^{i\theta T} = \lim_{n\to\infty} \left(1- \frac{i\theta}{n} T\right)^n \ ,
+\end{align}
+where $T$ is a matrix called the \textbf{generator} of the transformation. The factor of $i$ is a convention for the definition of $T$ that makes $T$ Hermitian, $T^\dag = T$, when the transformation is unitary.\footnote{Unitary transformations, which satisfy $U^\dag U = \mathbbm{1}$, are all over the place in quantum mechanics. They are the kinds of transformations that preserve probability because $\psi^\dag \psi \to \psi^\dag U^\dag U \psi$.} Thus the rotation along an axis, say $y$, is
+\begin{align}
+	R_y(\theta) = e^{i\theta T_y} \ .
+\end{align}
+Using the fact that 
+\begin{align}
+	\left.\frac{d}{d\theta} e^{i\theta T}\right|_{\theta=0} = i T \ ,
+	\label{eq:tangent:plane}
+\end{align}
+write out the explicit forms of $T_x$, $T_y$, and $T_z$ based on the finite rotation matrices above. Observe that the generators of a rotation are traceless, pure imaginary, Hermitian matrices. 
+
+\subsection{Rotations do not commute}
+
+Take any sufficiently asymmetric object (like a textbook). Make note of the starting configuration of the book. Say, lay it down on the table with the spine on the left and the cover facing up. Now do the following:
+\begin{enumerate}
+	\item Do a rotation by $+\pi/2$ along the $z$-axis. This is a rotation in the plane of the table. The book is now sideways.
+	\item Then do a rotation by $+\pi/2$ along the $x$-axis. The book should be facing with its spine facing up so that you can read the title. 
+\end{enumerate}
+Now reset the book to its original configuration. Now do the transformations in the opposite order:
+\begin{enumerate}
+	\item Then do a rotation by $+\pi/2$ along the $x$-axis. You should now be looking at the back cover, but upside down.
+	\item Do a rotation by $+\pi/2$ along the $z$-axis. Now you're again looking at the spine, but you have to turn your neck to read the title.
+\end{enumerate}
+Clearly the order in which you apply 3D rotations affects what the sequence of rotations does. The ways in which this ordering matters is at the crux of the mathematical structure of symmetry.\footnote{This is a discipline in math called group theory. It builds on abstract algebra. The types of groups that we consider here are called Lie groups (pronounced `lee'). These are groups that are continuous: the transformation parameter $\theta$ can take any real value. Lie groups are described by the exponentiation of infinitesimal transformations, the generators.} The mathematical structure in which this ordering matters is already present in the generators, $T$. Show that for very small rotations, $\theta_x = \varepsilon_x \ll 1$ and $\theta_y = \varepsilon_y \ll 1$, the difference between two rotations is:
+\begin{align}
+	R_x(\varepsilon_x) R_y(\varepsilon_y)
+	-
+	R_y(\varepsilon_y) R_x(\varepsilon_x)
+	= 
+	-\left[T_x,T_y\right]\varepsilon_x\varepsilon_y 
+	+ \mathcal O(\varepsilon^3) \ ,
+\end{align}
+where the \textbf{commutator} of two matrices is defined to be
+\begin{align}
+	\left[A,B\right] \equiv AB - BA \ .
+\end{align}
+In other words, to leading order in a small transformation parameter, the extent to which $R_x$ and $R_y$ do not commute is encoded in the commutator of their generators, $[T_x,T_y]$.
+
+\subsection{Non-commutation of two finite rotations} 
+
+Explicitly calculate the commutator of two finite rotations, $\left[R_x(\pi/2), R_y(\pi/2)\right]$. 
+
+\subsection{The algebra of rotations}
+
+A continuous symmetry group has an infinite number of possible rotations, but a finite number of generators. The definition of all commutation relations between these generators is called the \textbf{algebra} of the group. The algebra forms `a vector space of matrices' with an inner product proportional to the trace of the product of matrices.\footnote{This should sound familiar from the first long homework.} 
+
+The group of 3D rotations is called SO(3). SO($N$) is short for the special orthogonal group of $N\times N$ matrices.\footnote{A matrix $R$ is orthogonal if $R^TR=\mathbbm{1}$. A matrix is special if $\text{det} R=1$. Convince yourself that the $2\times 2$ and $3\times 3$ rotation matrices are elements of SO(2) and SO(3), respectively.} Explicitly work out the algebra of SO(3): write out every single commutation relation, $[T_i, T_j]$. The general form should be:
+\begin{align}
+	\left[T_i, T_j\right] = i\sum_k f_{ijk} T_k \ .
+\end{align}
+That is, the commutator of two generators is a linear combination of generators. The coefficients $f_{ijk}$ are called \textbf{structure constants}
+
+
+\textsc{Hint}: there are many combinations, but it should be obvious that $[T_i,T_i]=0$ and $[T_i,T_j]=-[T_j,T_i]$. In the end, there are only three that you have to list. 
+
+\textsc{Answer}: you should find that $[T_a,T_b] = i\sum_c\varepsilon_{abc}T_c$, where $\varepsilon_{abc}$ is the Levi-Civita tensor with $\epsilon_{123} = +1$. 
+
+\subsection{A different group with the same algebra}
+
+The group SU($N$) is defined by special unitary $N\times N$ matrices.\footnote{Unitary means $U^\dag U = \mathbbm{1}$. It is the complex version of orthogonal.} The generators of SU(2) are proportional to the Pauli matrices:
+\begin{align}
+	T_x &= \frac{1}{2}\sigma_x
+	= \begin{pmatrix}
+		0 & 1 \\ 
+		1 & 0
+	\end{pmatrix}
+	&
+	T_y &= \frac{1}{2}\sigma_x
+	= \begin{pmatrix}
+		0 & -i \\ 
+		i & 0
+	\end{pmatrix}
+	&
+	T_z &= \frac{1}{2}\sigma_x
+	= \begin{pmatrix}
+		1 & 0 \\ 
+		0 & -1
+	\end{pmatrix} \ .
+	\label{eq:pauli}
+\end{align}
+Observe that these three matrices form a basis for all traceless, Hermitian  $2\times 2$ matrices.\footnote{This means that any traceless, Hermitian $2\times 2$ matrix may be written as a linear combination of $T_x$, $T_y$, and $T_z$ with complex coefficients.} Show by explicit calculation that these matrices obey the same algebra as the previous problem. For example, $[T_x, T_y] = iT_z$. 
+
+\textsc{Comment:} we say that the symmetry groups SO(3) and SU(2) have the same algebra. Symmetry groups with the same algebra have the same essential structure.
+
+\subsection{Spinors}
+
+The $3\times 3$ matrices of SO(3) act on three-component real vectors. The $2\times 2$ matrices of SU(2) act on two-component complex vectors. These two-component complex vectors are called \textbf{spinors}.
+
+In the previous problem, you showed that the algebra of SO(3) and SU(2) are the same. This corresponds to the two groups having the same local structure.\footnote{By local, we really mean `near the identity', as we saw in \eqref{eq:tangent:plane}.} We can interpret the matrices $T_i = \frac{1}{2} \sigma_i$ as the generators of three-dimensional rotations on spinors. In other words, a rotation by an angle $\theta_x$ in the $x$-direction will transform a 3-component vector $\vec{v}$ according to
+\begin{align}
+	\vec{v} &\to R_x(\theta_x) \vec{v} 
+	&
+	R_x(\theta_x) = e^{i\theta_x T_x}
+	\ ,
+\end{align}
+and transform a spinor $\psi$ according to
+\begin{align}
+	\psi &\to \mathcal R_x(\theta_x) \psi 
+	&
+	\mathcal R_x(\theta_x) &= e^{\frac{i\theta_x}{2}\sigma_x} \ .
+\end{align}
+Write down the explicit form of the $2\times 2$ matrix that represents rotations by $\theta_z$ about the $z$-direction acting on spinors. What is the value of the matrix for $\theta_z = 2\pi$?
+
+\textsc{Comment:} this is a big deal! Electrons are spinors. When you rotate an electron by $2\pi$, you do \emph{not} have the same electron. Instead, something funny has happened. This behavior is completely different from $R_z(2\pi) = \mathbbm{1}_{3\times 3}$. You can trace the behavior back to the funny factor of $1/2$ in \eqref{eq:pauli}. This factor of $1/2$ is necessary for normalizing the algebra as a metric space (as you saw in long homework 1), but also to normalize the algebra to match that of SO(3).
+
+
+
+
+\section{Histogram Space: calculus becomes linear algebra}
+
+Suppose you have a continuous function $f(x)$ over some interval $[x_1, x_N]$. You can break up the interval by defining sampling points $x_i = x_1 + (i-1)\Delta x$ with $\Delta x = (x_N-x_1)/N$. The $\Delta x$ defines a `bin size' for a coarse-grained discretized version of the continuous function. This \emph{discretized function space} is an $N$-dimensional vector space with the usual basis vectors, $\vec{e}_{(i)}$. You can define a vector in this space as
+\begin{align}
+	\vec{f} = (f^1, f^2, f^3, \cdots, f^N)^T
+\end{align}
+where $f^i = f(x_i)$. This is simply a vector in $N$-dimensional space where the components are the sampled values of the function.  In this problem, we explore discretized derivatives as linear operators (matrices) acting on histogram space. You should keep in mind that the $N\to\infty$ limit recovers continuous functions and calculus as you know it.
+
+\subsection{Forward and Backward Derivative Operators}
+
+Recall the limit definition of the derivative:
+\begin{align}
+	\frac{df}{dx} \equiv \text{lim}_{\Delta x\to 0} \frac{f(x+\Delta x) - f(x)}{\Delta x} \ .
+\end{align}
+Consider the case where instead of $\Delta x \to 0$, we fix $\Delta x$ to be some finite value. Then we may define the discrete forward derivative acting on the discretized function space:
+\begin{align}
+	(D_\text{F} \vec{f})^i \equiv \frac{f_{i+1}-f_i}{\Delta x} \ .
+\end{align}
+Alternatively, one could define a backward derivative,
+\begin{align}
+	(D_\text{F} \vec{f})^i \equiv \frac{f^{i}-f^{i-1}}{\Delta x} \ .
+\end{align}
+Note that the $N^{\text{th}}$ component of forward derivative acting on $\vec{f}$ depends on $f^{N+1}$. Similarly, the first component of the backward derivative acting on $\vec{f}$ depends on $f^{0}$. In order to make sense of this, we have to define what these values are. These are called boundary conditions. First, assume \emph{Dirichlet boundary conditions}, $f^{N+1} = f^0 = 0$
+
+Please write out the components of the matrices $(D_F)^i_{\phantom{i}j}$ and $(D_B)^i_{\phantom{i}j}$ for the case $N=6$. Are these matrices Hermitian?
+
+Observe that you need to specify the boundary conditions in order to fully write out the matrix. In other words, in discretized function space, the boundary conditions are part of the definition of the vector space. This lesson carries over in the continuous version. 
+
+
+
+\subsection{Discretized Second Derivatives}
+
+
+
+\begin{enumerate}[(a)]
+	\item Show that the discretized second derivative $D^2$ is written in matrix notation as
+\begin{align}
+	\left(D^2\right)^i_{\phantom{i}j}
+	&= 
+	\frac{1}{\Delta x^2}
+	\left(
+	\delta_j^{(i-1)}
+	- 2 \delta_j^{i}
+	+
+	\delta_j^{(i+1)}
+	\right) \ .
+	\label{eq:D2}
+\end{align}
+% Specifically: if you have a continuous function $f(x)$ over some interval $[x_1, x_N]$, you can  break up the interval by defining $x_i = x_1 + (i-1)\Delta x$ with $\Delta x$ appropriately chosen. You can define a vector
+% \begin{align}
+% 	\vec{f} = (f^1, f^2, f^3, \cdots, f^N)^T
+% \end{align}
+% where $f^i = f(x_i)$. Show that (\ref{eq:D2}) is the matrix representation of the second derivative acting on $\vec{f}$. 
+% Show that (\ref{eq:D2}) is the matrix representation of the second derivative acting on $\vec{f}$. 
+Note that unlike the first derivative, the second derivative (Laplacian) can be defined symmetrically: you do not need to define a forward or a backward version of the second derivative. Note further that you still need to know the boundary conditions $f^{N+1}$ and $f^0$.
+% \textsc{Comment}: I will use $f^i$ to refer to particular component of $\vec{f}$ and  sometimes to also refer to the entire vectors, $\vec{f}$. Mathematicians hate me.
+
+\item Write out the second derivative as an explicit matrix for the case $N=6$ and with \textbf{Dirichlet} boundary conditions, $f^0 = f^{N+1} = 0$. Is the matrix Hermitian?
+
+\item Now consider the case of \textbf{periodic} boundary conditions. This means that if you travel past one edge of the domain, you end up back at the opposite edge\footnote{Classic examples of periodic boundary conditions are \emph{Pacman} and \emph{Asteroids}. If you are not familiar with those classic video games, then be content that youth is wasted on the young.}. Following the Dirichlet case, you may introduce fictitious `boundary' coordinates $f^0$ and $f^{N+1}$. What are these fixed to be? Write out what the $D^2$ matrix looks like for periodic conditions. Compare the matrix to the Dirichlet case. Is the second derivative Hermitian for periodic boundary conditions?
+
+\textsc{Comment}: observe that one of the key features of periodic boundary conditions is that there is no `special' location: there are effectively \emph{no} boundaries. This is why we like to use periodic boundary conditions when we do numerical simulations of large (potentially infinite) systems: we don't want the edges of our simulation to effect the bulk behavior, so we choose boundary conditions with no edges.
+
+\subsection{Locality}
+
+I suspect that in your brief life as a physicist, you have only ever seen equations with up to two derivatives. You rarely see a physical law that is the third or fourth derivative of a potential. One reason for this is that the laws of nature are expected to be \emph{local}: the dynamics that affects a physical state at a given instant should only depend on what's going on near the state in space and in time. You saw above that the derivative matrices are nearly diagonal, but they depend on the nearest neighbor in the forward or backward direction. The second derivative matrix depends on both the forward and backward neighbor.
+
+\begin{enumerate}[(a)]
+\item Write out the fourth derivative matrix, $(D^4)^i_{\phantom{i}j}$, using index notation and Kronecker $\delta$ functions, as we did in \eqref{eq:D2} for $D^2$. Write this out for a generic point in the middle of the space, rather than near the edge.\footnote{This just means: you can be agnostic about boundary conditions for now.}
+\item Consider sixth derivative matrix. If the second derivative connected a point to its two nearest neighbors, how many neighbors does $D^6$ connect to?
+\end{enumerate}
+
+
+% \section{Degenerate Eigenvalues}
+
+
+
+\end{enumerate}
+
+
+
+
+
+\end{document}
