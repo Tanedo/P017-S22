@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+
+\usepackage{sectsty}
+\sectionfont{\Large}
+% \subsectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Short HW 7}:
+    \textbf{Fourier Space}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S22)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, May 12
+\end{tabular*}
+
+\noindent
+Note that this short assignment is due by class on Thursday. You have only \emph{two days} to do it. This should be quick, I recommend doing it right after class on Tuesday.
+
+Consider the space of functions $f(x)$ on interval from $x=0$ to $x=L$ with Dirichlet boundary conditions,
+\begin{align}
+ 	f(0)&=0 & f(L)&= 0 \ .
+ \end{align}
+The \textbf{Fourier series} is a way of writing these functions in terms of a basis of sines or cosines. The choice of sines or cosines (or both) depends on the boundary conditions. For the above boundary conditions, the following basis of functions/kets/vectors is appropriate: 
+\begin{align}
+	|n\rangle  &=  C_n \sin (k_n x)  & n = 1, 2, 3, \cdots\ .
+\end{align}
+We sometimes call these basis vectors \emph{modes} of the Fourier series.
+We are writing $|n\rangle$ instead of $\vec{e}_{(n)}$ or $|e_{n}\rangle$ for convenience; it's just a basis function. The inner product on this space between two functions $f(x)$ and $g(x)$ is
+\begin{align}
+	\langle f,g\rangle = \int_0^1 dx\, f(x) g(x) \ .
+\end{align} 
+
+
+
+\section{The basis vectors}
+
+\begin{framed}
+The following integrals may be handy:
+ \begin{align}
+ 	\int_{0}^1 dx\; \sin^2(\pi x) &= \frac{1}{2} 
+ 	&
+	\int_{0}^1 dx\; \sin(n \pi x) \sin(m \pi x) &= 0
+ 	\ ,
+ \end{align}
+ where in the second relation we assume $m\neq n$. {You can think about how to prove these relations. One clever way is to use $\cos^2\theta + \sin^2\theta = 1$ and make and argument based on periodicity.}
+\end{framed}
+
+\subsection{Finding the frequencies}
+
+The $k_n$ is related to the angular frequency or momentum of each mode. In order to satisfy the boundary condition $f(L) = 0$, there are restrictions on the possible values of $k_n$: the frequencies must take on \emph{discrete} values such that $|n\rangle$ has a \emph{node} (it is zero) at $x=L$. In other words, \emph{the modes of a Fourier series have quantized frequencies}.
+
+There are an infinite number of ways to pick $k_n$ to satisfy $f(L)=0$. The index $n$ enumerates the infinite allowed values of $k_n$. Derive the expression for the possible values of $k_n$. You may assume that $k_n>0$.\footnote{You should ask: why not negative values of $k_n$? This is a great question. Think what do negative frequency basis functions look like? Are those linearly independent from the positive frequency basis functions?}
+
+\textsc{Answer}: The answer is $k_n = n\pi/L$ for $n=1,2,3,\cdots$. You should explain \emph{how} one arrives at this answer.
+
+
+\subsection{Normalizing the Fourier basis}
+
+Use the normalization condition $\langle n,n\rangle = 1$ to determine the basis prefactors $C_n$.
+
+\textsc{Answer}: The answer is $C_n = \sqrt{2/L}$. You should explain \emph{how} one would arrive at this answer.
+
+
+\subsection{What do the basis vectors look like?}
+
+Sketch a graph of the first three basis vectors. Make sure your sketch only goes over the appropriate domain of $x$. 
+
+ 
+\section{Fourier Series}
+
+As is often the case, the key step to representing a function $f(x)$ in its Fourier series is to multiply by one:
+\begin{align}
+	\mathbb{1} = \sum_{n=1}^\infty |n\rangle \langle n| \ ,
+\end{align}
+where we recall that the bra/row vector $\langle n|$ acts on a function $f(x)=|f\rangle$ as
+\begin{align}
+	\langle n | f\rangle = \langle n, f\rangle = \int_0^L dx\, C_n \sin(k_n x) f(x) \ .
+\end{align}
+The Fourier series representation of a function $f(x)$ in our function space is:
+\begin{align}
+	|f\rangle = \sum_{n=1}^\infty \langle n|f\rangle  |n\rangle  \ ,
+\end{align}
+where $\langle n|f\rangle$ are just numbers that are called the Fourier coefficients. To write it out more explicitly, this simply says:
+\begin{align}
+	f(x) &= \sum_{n=1}^\infty A_n \times C_n \sin(k_n x) & A_n = \langle n|f\rangle \ ,
+	\end{align}
+	where the $A_n$ are the Fourier coefficients.
+
+Find the first three Fourier coefficients of the function $f(x) = x(x-L)$.\footnote{We have written $f(x) = x(x-1)$ rather than $x^2-x$ as a reminder that this is a function that satisfies the Dirichlet boundary conditions of our vector space.} You do not have to perform the integral, just write out what the $A_n$ are. The first one, for example, is
+\begin{align}
+	A_1 = \int_0^L x(x-1) C_1 \sin(k_1 x) \ ,
+\end{align}
+where you already know what the $C_1$ and $k_1$ are. You can always perform these integrals---for example, in \emph{Mathematica} if need be---but usually you can leave them implicit until you actually need a number. After all, these coefficients are just numbers with no functional dependence on $x$.
+
+
+\section{So what?}
+
+The Fourier series is convenient because it is a basis of \emph{eigenfunctions of the one-dimensional Laplacian}, $(d/dx)^2$. As we discussed in class, the Laplacian shows up all the times in physics because it is the rotationally symmetric [second] derivative that connects nearby points in space. What is the eigenvalues $\lambda_n$ of the $n^\text{th}$ Fourier basis vector, $|n\rangle$, with respect to $(d/dx)^2$?
+
+\textsc{Comment:} The eigenvalues of a Hermitian operator like the Laplacian typically carries physical significance. For example, these may be the allowed harmonics on a guitar string, or the Kaluza--Klein modes of a particle in an extra dimension. 
+
+
+\end{document}
