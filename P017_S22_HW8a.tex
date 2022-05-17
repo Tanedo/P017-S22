@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{bbm}
+
+\usepackage{sectsty}
+\sectionfont{\Large}
+% \subsectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Short HW 8}:
+    \textbf{The exponential basis for Fourier Series}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S22)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, May 19
+\end{tabular*}
+
+\noindent
+Note that this short assignment is due by class on Thursday. You have only \emph{two days} to do it. This should be quick, I recommend doing it right after class on Tuesday.
+
+In class we presented a basis of complex functions defined from $-L\leq x\leq L$:
+\begin{align}
+	|n\rangle = \sqrt{\frac{1}{2L}}e^{-\frac{in\pi}{L} x} \ .
+\end{align}
+A general function $f = |f\rangle$ is expanded as follows:
+\begin{align}
+	|f\rangle = \sum_{n=-\infty}^\infty c_n |n\rangle \ ,
+\end{align}
+where we note that the sum extends over all integers from minus to plus infinity. We have not yet specified boundary conditions at $x=\pm L$. This imposes relationships between the coefficients $c_n$.
+
+\section{Reproducing the sine series}
+
+Suppose our function space has Dirichlet boundary conditions:
+\begin{align}
+	f(L) &= 0 & f(-L) &= 0 \ .
+\end{align}
+What condition does this impose on the $c_n$? \textsc{Hint:} you should remember that these boundary conditions are satisfied by a Fourier sine series. What relations do $c_n$ and $c_{-n}$ satisfy for the expansion to be a sum of sine functions? 
+
+
+
+\section{Orthonormality}
+\subsection{Orthogonality}
+Show that $\langle n|m\rangle = 0$ for $n\neq m$.
+
+\subsection{Normality}
+Show that $\langle n | n\rangle =1$. Explain why this integral is non-zero, even though the previous integral for $\langle n|m\rangle$ is zero for $n\neq m$. 
+
+\section{But my textbook says something different...}
+
+If you look up the complex Fourier series in some physics textbooks\footnote{e.g.\ Felder \& Felder, \emph{Mathematical Methods in Engineering and Physics},  (9.5.2).}, you may find a different expansion:
+\begin{align}
+	f(x) &= \sum_{n=-\infty}^\infty c_n e^{-\frac{in\pi}{L} x}
+	&
+	c_n &= \frac{1}{2L} \int_{-L}^L f(x)^* \, e^{-\frac{in\pi}{L} x} \ .
+\end{align}
+This looks like the normalization is totally different from our conventions! Show that the textbook rules above give the same Fourier series as our conventions. 
+
+\textsc{Comment:} our convention is better because our basis functions are normalized. The textbook definition uses not-normalized basis functions, and as a result the coefficients $c_n$ swallow part of the normalization factor.
+
+
+\end{document}
