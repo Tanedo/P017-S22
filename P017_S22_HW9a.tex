@@ -1,0 +1,181 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{bbm}
+
+\usepackage{sectsty}
+\sectionfont{\Large}
+% \subsectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Short HW 9}:
+    \textbf{Stern--Gerlach Experiment}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S22)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, May 26
+\end{tabular*}
+
+\noindent
+Note that this short assignment is due by class on Thursday. You have only \emph{two days} to do it. This should be quick, I recommend doing it right after class on Tuesday.
+
+We consider a two state quantum system: a silver atom passing through the Stern--Gerlach experiment. The alignment of the Stern--Gerlach apparatus selects a quantization axes and performs a measurement of the silver atom's spin along that axis. We consider two alignments in the problem, measurements of the spin along the $z$-direction ($S_z$) and measurements of spin along the $x$-direction ($S_x$):
+\begin{align}
+	S_z &=
+	\frac{\hbar}{2}
+	\begin{pmatrix}
+		1 & 0\\
+		0 & -1
+	\end{pmatrix}
+	&
+	S_x &=
+	\frac{\hbar}{2}
+	\begin{pmatrix}
+		0 & 1\\
+		1 & 0
+	\end{pmatrix} \ .
+\end{align}
+Up to the factor of $\hbar$, these matrices should look very familiar to you. The matrix $S_z$ has the following eigenbasis:
+\begin{align}
+	| \uparrow \rangle  &= 
+	\begin{pmatrix}
+		1 \\ 0
+	\end{pmatrix}	
+	&
+	| \downarrow \rangle  &= 
+	\begin{pmatrix}
+		0 \\ 1
+	\end{pmatrix}	
+\end{align}
+The matrix $S_x$ has the following eigenbasis:
+\begin{align}
+	| \rightarrow \rangle  &= 
+	\frac{1}{\sqrt{2}}
+	\begin{pmatrix}
+		1 \\ -1
+	\end{pmatrix}	
+	&
+	\frac{1}{\sqrt{2}}
+	| \leftarrow \rangle  &= 
+	\begin{pmatrix}
+		1 \\ 1
+	\end{pmatrix}	
+\end{align}
+
+\section{Quantum Mechanics, at last}
+
+\subsection{Probabilistic interpretation}
+Suppose we start with the state $|\uparrow\rangle$. If we observe the spin along the $x$-direction, what is the probability of observing $|\rightarrow\rangle$?
+
+\subsection{Checking $S_z$ twice}
+Suppose we start with the state $|\uparrow\rangle$. If we observe the spin along the $z$-direction, what is the probability of observing $|\uparrow\rangle$ again? What is the probability of observing $|\downarrow\rangle$?
+
+\subsection{Checking $S_x$, then $S_z$}
+Suppose we start with the state $|\uparrow\rangle$. We then observe the spin along the $x$-direction. We find that the state is now $|\rightarrow\rangle$. If we now observe the spin along the $z$-direction, what is the probability of observing $|\uparrow\rangle$ again? What is the probability of observing $|\downarrow\rangle$?
+
+\section{Quantum Eavesdropping}
+
+Alice and Bob do not know the BB84 protocol for secure quantum key exchange. They prepare 100 qubits by taking 100 silver atoms and observing the spin in the $z$-direction. By interpreting $|\uparrow\rangle$ as 0 and $|\downarrow\rangle$ as 1, Alice and Bob now have a 100-character binary string that they can use as a cipher. 
+
+Alice writes down the cipher, while Bob walks away with the 100 silver atoms in his coat pocket. Bob is careful not to accidentally observe the silver atoms, since that could cause them to project onto another basis.
+
+Meanwhile, Eve (the eavesdropper), has a super high tech Stern--Gerlach machine that she quietly uses to observe Bob's 100 qubits while he is sitting by the park feeding ducks. However, Eve does not know whether the qubits are eigenstates of $S_z$ or $S_x$. She has to guess one alignment to observe the qubits. She guesses incorrectly, and uses $S_x$ to measure Bob's qubits.
+
+Eve slinks off into her secret lair to read off the results of her measurements. She maps $|\rightarrow\rangle$ to 0 and $|\leftarrow\rangle$ to 1. She now has a copy of what she thinks is Alice and Bob's cipher. Queue dastardly laughter.\footnote{See, e.g. \emph{Dr.\ Horrible's Sing Along Blog}}
+
+Oblivious as he is, Bob does not realize that his qubits were compromised. He then goes home to write a secret message to Alice. He takes his qubits and measures each of their spins in the $z$ direction. He believes that the qubits are still eigenstates of $S_z$, so this measurement should give the same states that he measured with Alice earlier in the day. He converts these states into ones and zeros and proceeds to write a coded message.
+
+In actuality, approximately how many of the digits in Bob's cipher are now wrong?
+
+
+
+
+\end{document}
