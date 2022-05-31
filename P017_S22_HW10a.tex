@@ -1,0 +1,159 @@
+\documentclass[12pt]{article}
+%% arXiv paper template by Flip Tanedo
+%% last updated: Dec 2016
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  THE USUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{nopageno}
+\usepackage{enumerate}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{bbm}
+
+\usepackage{sectsty}
+\sectionfont{\Large}
+% \subsectionfont{\large}
+% \renewcommand{\thesection}{}
+% \renewcommand{\thesubsection}{\arabic{subsection}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  PAGE FORMATTING and (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2cm]{geometry}   % reasonable margins
+
+\graphicspath{{figures/}}	        % set directory for figures
+
+% for capitalized things
+\newcommand\acro[1]{{\small {#1}}}
+
+\numberwithin{equation}{section}    % set equation numbering
+\renewcommand{\tilde}{\widetilde}   % tilde over characters
+\renewcommand{\vec}[1]{\mathbf{#1}} % vectors are boldface
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}    % for d/2pi
+\newcommand{\ket}[1]{\left|#1\right\rangle}    % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}    % |#1>
+\newcommand{\Xmark}{\text{\sffamily X}}        % cross out
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+% Commands for temporary comments
+\newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1} #2]}}
+\newcommand{\flip}[1]{{\color{red} [\textbf{Flip}: {#1}]}}
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
+
+\newenvironment{institutions}[1][2em]{\begin{list}{}{\setlength\leftmargin{#1}\setlength\rightmargin{#1}}\item[]}{\end{list}}
+
+
+\usepackage{fancyhdr}		% to put preprint number
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%  HYPERREF  %%%%
+%%%%%%%%%%%%%%%%%%%
+
+%% This package has to be at the end; can lead to conflicts
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=black,
+	linkcolor=black,
+	urlcolor=green!50!black,
+	hypertexnames=false]{hyperref}
+
+
+
+
+
+\begin{document}
+
+
+\begin{center}
+
+    {\Large \textsc{Short HW 10}:
+    \textbf{No cloning theorem}}
+    
+\end{center}
+
+\vskip .4cm
+
+\noindent
+\begin{tabular*}{\textwidth}{rl}
+	\textsc{Course:}& Physics 017, \emph{Linear Algebra for Physics} (S22)
+	\\
+	\textsc{Instructor:}& Prof. Flip Tanedo (\email{flip.tanedo@ucr.edu})
+	\\
+	\textsc{Due by:}& \textbf{Thursday}, June 2
+\end{tabular*}
+
+\noindent
+Note that this short assignment is due by class on Thursday. You have only \emph{two days} to do it. This should be quick, I recommend doing it right after class on Tuesday.
+
+This problem draws from the lovely text by Mertens and Moore, \emph{The Nature of Computation} (chapter 15.3). We use the basis where $|\uparrow\rangle = |0\rangle$ and $|\downarrow\rangle = |1\rangle$.
+
+\section{No Cloning}
+
+It turns out that it is not possible to simply copy a qubit. This poses a set of challenges for doing classical computing on a quantum computer. 
+
+Classical computing is built on logic gates. One of the logic gates is the controlled \acro{NOT} gate, or \acro{CNOT}. This gate takes in two bits of data, $|a\rangle \otimes |b\rangle$ and spits out the following:
+\begin{align}
+	\text{CNOT}|a\rangle \otimes |b\rangle = 
+	\begin{cases}		
+		|a\rangle \otimes |b\rangle & \text{if }|a\rangle = |0\rangle\\
+		|a\rangle \otimes |0\rangle & \text{if }|a\rangle\otimes|b\rangle = |1\rangle\otimes|1\rangle\\
+		|a\rangle \otimes |1\rangle & \text{if }|a\rangle\otimes|b\rangle = |1\rangle\otimes |0\rangle
+		\end{cases}			
+\end{align}
+In other words, $\text{CNOT}|a\rangle \otimes |b\rangle$ will flip the value of $|b\rangle$ if $|a\rangle = |1\rangle$. 
+
+\subsection{CNOT as a quantum cloning gate}
+
+Suppose you have a qubit $|\psi\rangle$ that is in some $S_z$ eigenstate: it is either $|0\rangle$ or $|1\rangle$. If you happen to have a $|0\rangle$ qubit, then show that you can \emph{clone} $\psi$ using the \acro{CNOT} gate:
+\begin{align}
+	\text{CNOT}|\psi\rangle\otimes |0\rangle = |\psi\rangle\otimes|\psi\rangle \ .
+\end{align}
+\textsc{Hint:} simply try the two cases for $|\psi\rangle$ and check what comes out.
+
+\subsection{CNOT cannot clone superpositions}
+
+Let us instead suppose that $|\psi\rangle$ is a superposition of $S_z$ eigenstates, e.g. 
+\begin{align}
+	|\psi\rangle = \psi_0|0\rangle + \psi_1|1\rangle \ .
+\end{align}
+Calculate $|\psi\rangle\otimes |\psi\rangle$ and argue that there is no unitary \emph{linear} operator that can possibly give this. We then conclude that $\text{CNOT}|\psi\rangle\otimes |0\rangle$ does not clone superpositions of $S_z$ eigenstates.
+
+\textsc{Partial answer}: the proposed cloned state is
+\begin{align}
+ 	|\psi\rangle\otimes |\psi\rangle = 
+ 	\psi_0^2  |0\rangle\otimes|0\rangle
+	+ \psi_0 \psi_1 |0\rangle\otimes|1\rangle
+	+ \psi_1 \psi_0  |1\rangle\otimes|0\rangle
+	+ \psi_1 \psi_1  |1\rangle\otimes|1\rangle  \ .
+ \end{align}
+ The right-hand side is written with respect to an eigenbasis of the tensor product. Compare this to the initial state, $|\psi\rangle\otimes|0\rangle$. Is there any linear operator that can take something linear in $\psi_1$ and $\psi_2$ and then turn it into something that is not linear in $\psi_1$ and $\psi_2$?
+
+
+
+
+
+
+
+\end{document}
